@@ -31,7 +31,7 @@ P P P  P N P  P N P  P N P  P N P  B P P  P B P  P P B
 
  Shift-click the cells to select and flag them if you think it's a mine.
 
- ##Technologies used:
+ ### *Technologies used:*
  Native JavaScript
  HTML5
  CSS3
@@ -40,7 +40,7 @@ P P P  P N P  P N P  P N P  P N P  B P P  P B P  P P B
  Atom text editor
 
 
- ##Getting Started:
+ ###*Getting Started:*
 
  Here's the link to the game!
 
@@ -53,3 +53,6 @@ Trying out iterative and recursive methods and benchmarking the two, for micro-p
 Maybe eliminate the constructor class for board or maybe make board with more properties so that it warrants its own constructor class.
 
 Refining it more.
+
+###*ACKNOWLEDGEMENTS
+Thank you Jim for all the help!!!!
