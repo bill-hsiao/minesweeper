@@ -1,0 +1,25 @@
+table {
+    border-collapse: collapse;
+}
+td {
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    background-color: grey;
+    outline: 1px solid black;
+    outline-offset: -1px;
+}
+
+.flagged {
+    background-color: blue;
+}
+
+.bomb {
+    background-color: red;
+}
+
+.revealed {
+    background-color: yellow;
+}
