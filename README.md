@@ -4,7 +4,10 @@ Hello everyone! In this repository is the game we all know and love; crafted wit
 
 ## Installing
 
-Need an internet browser. (Chrome, FireFox, Opera)
+Required browser settings:
+* JavaScript enabled
+* HTML5 support
+
 
 ### Description
 ** the playing field is a 10 x 10 grid
