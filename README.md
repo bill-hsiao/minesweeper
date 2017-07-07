@@ -44,7 +44,7 @@ P P P  P N P  P N P  P N P  P N P  B P P  P B P  P P B
 
  Here's the link to the game!
 
- https://billhsiao.github.io/minesweeper/
+ [★](https://billhsiao.github.io/minesweeper/)
 
 Next steps:
 
