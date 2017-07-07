@@ -95,5 +95,12 @@ Unsolved problems: refactoring the game and wrapping it up in as many objects as
 Trying out iterative and recursive methods and benchmarking the two, for micro-performance gains.
 Maybe eliminate the constructor class for board or maybe make board with more properties so that it warrants its own constructor class.
 
+Some new things that I would like to implement that I find interesting. 
+Blackout minesweeper: whole board never reveals, only one square is revealed at a time - and that is the one that the mouse has targeted. So you can take a peek at the square underneath it, but that's all you get. Still have to flag the proper mines and once you succeed at flagging all the correct mines then you win!
+
+different modes, sizes, mine %, probably change em to a variable that is set by the user wwith an additional user input menu for such things (like a little box that pops up before the game initializes that has all the available input fields for the necessary variables)
+
+make it more patriotic
+
 Refining it more.
 
