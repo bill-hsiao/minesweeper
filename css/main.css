@@ -1,19 +1,32 @@
+body {
+  max-width: 600px;
+  text-align: center;
+  font-family: 'Yellowtail', cursive;
+}
+div {
+  margin: 0px auto;
+
+}
 table {
-    border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: center;
 }
 td {
-    font-family: 'Times New Roman', Times, serif;
     text-align: center;
-    font-size: 30px;
-    width: 40px;
-    height: 40px;
-    background-color: grey;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    background-color: white;
     outline: 1px solid black;
     outline-offset: -1px;
+    font-family: 'Roboto Mono', monospace;
 }
 
 .flagged {
     background-color: blue;
+    font-style: white;
 }
 
 .bomb {
@@ -21,5 +34,14 @@ td {
 }
 
 .revealed {
-    background-color: yellow;
+    background-color: white;
+}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }

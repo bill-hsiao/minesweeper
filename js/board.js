@@ -25,27 +25,6 @@ class Board {
         return this.getCellByRowCol(row, col);
     }
 
-    
-    
 
-    // getAllMines(index) {
-    //   var numCells = board.cells.length * board.cells[0].length;
-    //   for (var id = 0; id < numCells; id++) {
-    //       if (board.cell.mine) {
-    //           board.cell.revealed = true;
-    //       }
-    // }
 
 }
-
-
-
-
-// {
-//                     col: colIdx,
-//                     row: row,
-//                     mine: Math.random() < .25 ? true : false,
-//                     revealed: false,
-//                     flagged: false,
-//                     numAdj: null
-//                 }

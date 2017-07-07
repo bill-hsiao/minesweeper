@@ -1,6 +1,6 @@
 /*app's constants*/
 /*----- app's state (variables) -----*/
-//var board;
+var board;
 
 /*----- cached element references -----*/
 
@@ -55,9 +55,10 @@ function render() {
         var cell = board.getCellByIndex(id);
         var td = document.getElementById(id);
         td.className = '';
+        td.textContent = ' '; // use a unicode char
         if (cell.flagged) {
             td.className = 'flagged';
-            td.textContent = ' '; // use a unicode char
+            td.textContent = '★'; // use a unicode char
         } else if (cell.revealed && cell.mine) {
             td.className = 'bomb';
             td.textContent = ' '; // use a unicode char
