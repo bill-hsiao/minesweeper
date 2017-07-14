@@ -7,6 +7,7 @@ class Cell {
         this.revealed = false;
         this.flagged = false;
         this.numAdj = null;
+        this.select = false;
     }
     computeAdj() {
         var count = 0;
