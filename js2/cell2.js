@@ -1,12 +1,12 @@
 class Cell {
-  constructor(index, mine) {
+  constructor(index) {
     this.id = index;
-    this.mine = Boolean;
+    this.mine = false;
   }
 }
 
 
-//
+//``
 // this.focus = Boolean;
 // this.revealed = false;
 // this.flagged = false;

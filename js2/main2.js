@@ -1,32 +1,39 @@
+const GAME = {
+  board: size(11, 11)
+}
+//GAME.board.count
+function sizeInput(evt) {
+  console.log(evt.target);
+}
 
+function newGame() {
+  console.log(GAME.board);
+}
 
+newGame();
 
-const game = {
-  board: (length, width) => {
-    return new Board(length, width)
+function size(length, width) {
+  return new Board (length, width)
+}
+
+function mineLayer() {
+  var cell = GAME.board.getCell(randomNum());
+  console.log(cell.mine);
+  cell.mine = !cell.mine || cell.mine;
+  GAME.board.mineCount++;
+  //console.log(cell, cell.mine);
+
+}
+mineLayer();
+function mineLoop(n) {
+  for (var i = 0; i < n; i ++) {
+    mineLayer();
   }
 }
 
+//mineLoop(100);
 
-function game3() {
-  var b = .15;
-
-  var current = game.board(20, 20)
-
-
+function randomNum() {
+  var max = GAME.board.area;
+  return Math.floor(Math.random() * (max + 1));
 }
-
-game3();
-console.log(game.board(20, 20));
-
-
-
-
-function render() {
-  console.log(game.board);
-  //document.createElement('td')
-}
-
-document.getElementById('button').addEventListener('click', render);
-
-render();
