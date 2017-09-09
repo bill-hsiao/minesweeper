@@ -3,8 +3,6 @@ class Board {
     this.length = length;
     this.width = width;
     this.area = length * width;
-    this.mineCount = 0;
-    this.minesLeft;
     this.field = [ ...Array(width).keys()];
     for (var i = 0; i < width; i++) {
       this.field[i] = [ ...Array(length).keys()];
@@ -19,6 +17,7 @@ class Board {
     x = (id - y) / this.width;
     return this.field[x][y];
   }
+
 }
 
 

@@ -2,6 +2,7 @@ class Cell {
   constructor(index) {
     this.id = index;
     this.mine = false;
+    this.flagged = false;
   }
 }
 
