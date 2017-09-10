@@ -17,6 +17,13 @@ class Board {
     x = (id - y) / this.width;
     return this.field[x][y];
   }
+  getTopCells(id) {
+    let x, y, offset;
+    y = id % this.length;
+    x = (id - y) / this.width;
+    offset = (x - 1 < 0 ? 0 : 1);
+    return this.field[x-offset][y];
+  }
 
 }
 

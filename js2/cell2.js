@@ -3,6 +3,8 @@ class Cell {
     this.id = index;
     this.mine = false;
     this.flagged = false;
+    this.numAdj = null;
+    this.revealed = false;
   }
 }
 

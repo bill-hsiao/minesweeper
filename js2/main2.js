@@ -1,35 +1,42 @@
 var options = {
+  settings: {
+    length: null,
+    width: null,
+    mineCount: null
+  },
   mineSetter: (evt) => {
     if (evt.target) {
-      settings.mineCount = evt.target.value;
+      options.settings.mineCount = evt.target.value;
     }
   },
   widthSetter: (evt) => {
     if (evt.target) {
-      settings.width = evt.target.value;
+      options.settings.width = evt.target.value;
     }
   },
   lengthSetter: (evt) => {
     if (evt.target) {
-      settings.length = evt.target.value;
+      options.settings.length = evt.target.value;
     }
+  },
+  settingSetter: () => {
+    console.log(options.settings);
+    GAME.board = size(options.settings.length, options.settings.width);
+    GAME.mineCount = mineLayer(options.settings.mineCount);
+    function size(length, width) {
+      return new Board (length, width)
+    }
+
   }
+
 }
-var settings = {
-  length: null,
-  width: null,
-  mineCount: null
-}
+
 
 document.getElementById('minecount_input').addEventListener('input', options.mineSetter);
 document.getElementById('width_input').addEventListener('input', options.widthSetter);
 document.getElementById('length_input').addEventListener('input', options.lengthSetter);
+document.getElementById('play_button').addEventListener('click', options.settingSetter);
 
-
-
-function setters(input) {
-
-}
 
 
 const GAME = {
@@ -38,23 +45,34 @@ const GAME = {
   win: null,
   lose: () => {console.log('you lose')},
   numOfMines: 0
-
 }
 
-
-
-function settingSetter(settings) {
-  GAME.board = size(settings.length, settings.width);
-  GAME.mineCount = mineLayer(settings.mineCount);
+function adjFinder(id) {
+  var count = 0;
+  var cell = GAME.board.getTopCells(id);
+  console.log(cell);
 }
 
+//   var top = {
+//     middle: (GAME.board.getCell(cell.id - GAME.board.length)),
+//     left: (GAME.board.getCell(cell.id - GAME.board.length - 1)),
+//     right: (GAME.board.getCell(cell.id - GAME.board.length + 1))
+//   };
+//   var middle = {
+//     left: (GAME.board.getCell(cell.id - 1)),
+//     right: (GAME.board.getCell(cell.id + 1))
+//   };
+//   var bottom = {
+//     middle: (GAME.board.getCell(cell.id + GAME.board.length)),
+//     left: (GAME.board.getCell(cell.id + GAME.board.length - 1)),
+//     right: (GAME.board.getCell(cell.id + GAME.board.length + 1))
+//   };
+//   console.log(top.middle, middle.left, bottom.right);
+// }
 
 
-settingSetter(settings);
 
-function reset() {
 
-}
 
 
 var render = {
@@ -70,10 +88,14 @@ var render = {
       row.appendChild(cell);
     }
     table.appendChild(row);
-  }
+  };
   table.addEventListener('click', handleClick);
   document.body.appendChild(table);
+},
+  stateChange: () => {
+
   }
+
 }
 
 document.getElementById('button').addEventListener('click', render.createCells);
@@ -81,6 +103,7 @@ document.getElementById('button').addEventListener('click', render.createCells);
 
 function handleClick(evt) {
   var clicked = GAME.board.getCell(evt.target.id);
+  adjFinder(evt.target.id);
   if (clicked.mine) {
     GAME.lose();
     console.log('mine');
@@ -88,16 +111,6 @@ function handleClick(evt) {
   console.log(clicked);
 }
 
-
-function newGame() {
-  console.log(GAME.board);
-}
-
-newGame();
-
-function size(length, width) {
-  return new Board (length, width)
-}
 
 
 
