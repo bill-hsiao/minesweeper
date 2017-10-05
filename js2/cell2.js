@@ -1,10 +1,11 @@
 class Cell {
   constructor(index) {
-    this.id = index;
+    this.id = +index;
     this.mine = false;
     this.flagged = false;
     this.numAdj = null;
     this.revealed = false;
+    this.number = 0;
   }
 }
 

@@ -32,6 +32,10 @@ trow {
   height: 1px;
 }
 
+input {
+  float:left;
+}
+
 .flagged {
     background-color: blue;
     color: white;

@@ -11,7 +11,7 @@ function adjacentFinder(id) {
     bottomRightCorner: null
   }
   function edgeCases(id) {
-    
+
   }
   objectFunc(adjacentEdges);
   function objectFunc(obj) {
@@ -23,3 +23,8 @@ function adjacentFinder(id) {
   }
 }
 adjacentFinder();
+
+function adjMaker(left, right) {
+  this.hello = left,
+  this.bye = right
+}
