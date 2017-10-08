@@ -17,20 +17,12 @@ class Board {
     y = id % this.length;
     x = (id - y) / this.width;
     //console.log(x, y, this.field)
-    return this.field[x][y];
-  }
-  getArgs(id) {
-    let topRow, centreRow, bottomRow, row, col, area, cell, list = [];
-    row = +this.length;
-    //col = +this.width;
-    //area = +this.area;
-    topRow = id - row;
-    bottomRow = id + row;
-    centreRow = +id;
-    list.push(topRow - 1, topRow, topRow + 1, centreRow -1, centreRow, centreRow + 1, bottomRow -1, bottomRow, bottomRow + 1);
-    return list;
+    return this.field[x][y]
   }
 
+  retrieveCell(coordX, coordY) {
+    return this.field[coordX][coordY]
+  }
   getCellX(id) {
     let x, y;
     x = id % this.length;

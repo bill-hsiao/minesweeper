@@ -5,7 +5,14 @@ class Cell {
     this.flagged = false;
     this.numAdj = null;
     this.revealed = false;
-    this.number = 0;
+    this.number = null;
+  }
+  callMethod() {
+    console.log("method successfully called.", this.number);
+  }
+  incrementThisCell() {
+    this.number ++;
+    console.log(this.number);
   }
 }
 
