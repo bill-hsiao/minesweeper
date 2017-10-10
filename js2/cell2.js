@@ -14,6 +14,12 @@ class Cell {
     this.number ++;
     console.log(this.number);
   }
+  mineToggle() {
+    this.mine = true;
+  }
+  numberToggle() {
+    this.number ++;
+  }
 }
 
 

@@ -76,6 +76,14 @@ const GAME = {
   retrieveCell: null
 }
 
+var renderRec = {
+  createCellsRec,
+  stateChangeRec
+}
+function createCellsRec() {
+  let table = document.createElement('table');
+  // let length = 
+}
 
 var render = {
   createCells: () => {
@@ -147,23 +155,28 @@ function numberMarker() {
 
   }
 
+function returnCell(cell) {
+  return cell;
+}
 function adjCellOpen(array) {
   let l = array.length;
   if (l > 0) {
     let x = array[0][0];
     let y = array[0][1];
-    GAME.board.retrieveCell(x, y).callMethod();
-    array = array.shift();
+    GAME.board.retrieveCell(x, y)
+    array = array.slice(1);
     adjCellOpen(array);
   } else {
     return;
   }
 }
-function retrieveCell2(coordX, coordY) {
-  return GAME.board.field[coordX][coordY]
-}
 
 function handleClick(evt) {
+  function haha(cell) {
+
+    return this.number++;
+  };
+  var hehe = haha();
   var adjCells = function(...cellCoords) {
     var aO = {
     };
@@ -177,10 +190,11 @@ function handleClick(evt) {
   }
   var id = +evt.target.id;
   var coords = parse(evt.target.id);
+  var tb = GAME.board.retrieveCell(...coords).numberToggle();
   GAME.board.retrieveCell(...coords).revealed = true;
   var cellies = adjacenters(...coords);
   adjCells(cellies);
-  adjCellOpen(cellies);
+  adjCellOpen(cellies, tb);
   var clicked = GAME.board.getCell(id);
   render.stateChange();
   //console.log(clicked, GAME.area);
@@ -195,6 +209,7 @@ function handleClick(evt) {
   }
 
 }
+
 function parse(id) {
   var y = id % GAME.length;
   var x = (id - y ) / GAME.width;
