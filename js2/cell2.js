@@ -5,7 +5,7 @@ class Cell {
     this.flagged = false;
     this.numAdj = null;
     this.revealed = false;
-    this.number = null;
+    this.number = 0;
   }
   callMethod() {
     console.log("method successfully called.", this.number);

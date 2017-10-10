@@ -2,7 +2,8 @@ var options = {
   settings: {
     length: null,
     width: null,
-    mineCount: null
+    mineCount: null,
+    mineLayer:null
   },
   mineSetter: (evt) => {
     if (evt.target) {
@@ -29,11 +30,29 @@ var options = {
     GAME.board = new Board (GAME.length, GAME.width);
     GAME.area = GAME.length * GAME.width;
     GAME.retrieveCell = GAME.board.retrieveCell;
-    mineLayer1(options.settings.mineCount);
+    //mineLayer1(options.settings.mineCount);
+    options.mineLayer(options.settings.mineCount);
+
     numberMarker();
-    //numberAdd();
-    //Object.freeze(options);
+  },
+  mineLayer: (n) => {
+    if (n === 0) {
+      console.log('minelaying done');
+      return;
+    }
+    let num = randomNum();
+    let cell = GAME.board.getCell(num);
+    cell.mine ? options.mineLayer(n) : setCellMine(cell);
+    function setCellMine(cell) {
+      cell.mine = true;
+      options.mineLayer(n - 1);
+    }
+    function randomNum() {
+      var max = GAME.board.area;
+      return Math.floor(Math.random() * (max));
+    }
   }
+
 }
 
 
@@ -86,7 +105,7 @@ var render = {
         let td = document.getElementById(id);
         if (GAME.board.retrieveCell(i, j).revealed === true) {
           td.className = "revealed";
-
+          td.textContent = GAME.board.retrieveCell(i, j).number;
         }
       }
     }
@@ -97,16 +116,17 @@ var render = {
 document.getElementById('button').addEventListener('click', render.createCells);
 
 function numberMarker() {
+  var mineObject = null;
   var adjCells = function(...cellCoords) {
     var aO = {
     };
     for (var i = 0; i < cellCoords[0].length; i ++) {
       let current = cellCoords[0][i][0];
       let current2 = cellCoords[0][i][1];
-      if (GAME.board.retrieveCell(...cell).mine) {
-        console.log(GAME.board.retrieveCell(...cell).mine)
-        GAME.board.retrieveCell(current, current2).number;
-        adjacenters(...cell);
+      if (mineObject === 1) {
+        console.log(GAME.board.retrieveCell(...cell).mine);
+        GAME.board.retrieveCell(current, current2).number ++;
+        //adjacenters(...cell);
       } else {
       //GAME.board.retrieveCell(current, current2);
       aO[i] = GAME.board.retrieveCell(current, current2);
@@ -117,19 +137,15 @@ function numberMarker() {
   };
   for (var j = 0; j < (GAME.width * GAME.length); j ++) {
     var cell = parse(j);
+    if (GAME.board.retrieveCell(...cell).mine === true) {
+      mineObject = 1;
+    }
     var cellies = adjacenters(...cell);
     var call;
     adjCells(cellies);
-      console.log(adjCells(cellies));
     }
 
   }
-
-// function numberAdd() {
-//   var length = GAME.board.field.length-1;
-//   var width = GAME.board.field[length].length -1;
-//   GAME.board.field[q][p].mine ? adjacenter
-// }
 
 function handleClick(evt) {
   var adjCells = function(...cellCoords) {
@@ -161,27 +177,6 @@ function handleClick(evt) {
     }
   }
 }
-
-function mineLayer1(n) {
-
-  if (n === 0) {
-    console.log('minelaying done');
-    return;
-  }
-  let num = randomNum();
-  let cell = GAME.board.getCell(num);
-  cell.mine ? mineLayer1(n) : setCellMine(cell);
-  function setCellMine(cell) {
-    //adj.number = adj.number + 1;
-    cell.mine = true;
-    mineLayer1(n - 1);
-  }
-  function randomNum() {
-    var max = GAME.board.area;
-    return Math.floor(Math.random() * (max));
-  }
-}
-
 function parse(id) {
   var y = id % GAME.length;
   var x = (id - y ) / GAME.width;
