@@ -147,6 +147,22 @@ function numberMarker() {
 
   }
 
+function adjCellOpen(array) {
+  let l = array.length;
+  if (l > 0) {
+    let x = array[0][0];
+    let y = array[0][1];
+    GAME.board.retrieveCell(x, y).callMethod();
+    array = array.shift();
+    adjCellOpen(array);
+  } else {
+    return;
+  }
+}
+function retrieveCell2(coordX, coordY) {
+  return GAME.board.field[coordX][coordY]
+}
+
 function handleClick(evt) {
   var adjCells = function(...cellCoords) {
     var aO = {
@@ -164,6 +180,7 @@ function handleClick(evt) {
   GAME.board.retrieveCell(...coords).revealed = true;
   var cellies = adjacenters(...coords);
   adjCells(cellies);
+  adjCellOpen(cellies);
   var clicked = GAME.board.getCell(id);
   render.stateChange();
   //console.log(clicked, GAME.area);
@@ -176,6 +193,7 @@ function handleClick(evt) {
         console.log('mine');
     }
   }
+
 }
 function parse(id) {
   var y = id % GAME.length;
