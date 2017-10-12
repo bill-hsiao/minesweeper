@@ -7,7 +7,7 @@ class Board {
     for (var i = 0; i < this.width; i++) {
       this.field[i] = [ ...Array(length).keys()];
       for (var j = 0; j < this.length; j++) {
-        this.field[i][j] = new Cell(i * width + j);
+        this.field[i][j] = new Cell(i, j, width);
       }
     }
   }
@@ -20,8 +20,8 @@ class Board {
     return this.field[x][y]
   }
 
-  retrieveCell(coordX, coordY) {
-    return this.field[coordX][coordY]
+  retrieveCell(x, y) {
+    return this.field[x][y]
   }
   setCell(cell) {
     this.flagged = true;

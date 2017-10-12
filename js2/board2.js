@@ -1,6 +1,11 @@
 class Board {
   constructor(length, width) {
-      if ()
+      if (this.row !== length) {
+          this.row.push(this.col);
+          if (this.col !== width) {
+              this.col.push(new Cell())
+          }
+      }
   }
 
   getCell(id) {
@@ -13,6 +18,10 @@ class Board {
 
   retrieveCell(coordX, coordY) {
     return this.field[coordX][coordY]
+  }
+
+  c(a, b) {
+    return this.field[a][b]
   }
   setCell(cell) {
     this.flagged = true;
