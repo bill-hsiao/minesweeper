@@ -11,14 +11,23 @@ var map = [
 function solver(arr) {
     function row() {
         var island = 0;
-        arr.forEach(function(x, i, a) {
-        x.forEach(function(x, i, a) {
-            //console.log(x)
-            //console.log(a[i]);
-            if (x > 0 && a[i - 1] > 0) {
-                console.log('adding')
+        var islandSize = 0;
+        arr.forEach(function(x, y, z) {
+            
+        x.forEach(function(a, b, c) {
+            if (a === 0 && x[b] === 0 && x[b-1] === 0 && x[b+1]===0) {
                 island + 1;
+                islandSize = 0;
+            } else {
+                if (a > 0 && c[b - 1] > 0) {
+                    console.log('adding')
+                    islandSize + 1;
+                } else if (a === 0 && c[b -1] > 0 && c[b + 1] === 0) {
+                    x[b] === 1 ?
+                }
             }
+                
+            } 
         })
         
     })
