@@ -6,7 +6,7 @@ const props = {
     mineCount : null,
     widthInput : null,
     lengthInput : null
-};
+}
 function setGameProps(evt) {
     var event = evt.target.id;
     if (event === 'minecount_input') {
@@ -26,20 +26,20 @@ function display(cb) {
 function mines(p) {
     if (p === 0) {
         return
-    }
-    let n = c(parse(Math.floor(Math.random() * (props.widthInput * props.lengthInput))));
-    n.mine ? mines(p) : (
-        n.mine = true,
+    };
+    let cell = c(...parse(Math.floor(Math.random() * (props.widthInput * props.lengthInput))));
+    cell.mine ? mines(p) : (
+        cell.mine = true,
+        adjCellOpen(numAdder1, adjacenters(...parse(cell.id))),
         mines(p - 1)
-    );
+    )
 }
 function parse(id) {
   let y = id % props.lengthInput;
   let x = (id - y ) / props.widthInput;
   return [x, y]
 }
-function c(arr) {
-    let [x, y] = arr;
+function c(x, y) {
     return game.field[x][y]
 }
 function player(value) {
@@ -52,7 +52,7 @@ function initialize() {
     document.getElementById('length_input').addEventListener('input', setGameProps);
     document.getElementById('play_button').addEventListener('click', display);
     document.getElementById('button').addEventListener('click', createCells);
-    document.getElementById('flag').addEventListener('click', flagHandler);
+    document.getElementById('flag').addEventListener('click', flagHandler)
 }
 function gameOver() {
     console.log('game over')
@@ -67,45 +67,51 @@ function createCells() {
                 cell.id = i * props.widthInput + j;
                 row.appendChild(cell);
             }
-            table.appendChild(row);
-        };
-        document.body.appendChild(table);
+            table.appendChild(row)
+        }
+        div.appendChild(table)
         table.addEventListener('click', handleClick);
-    } 
+}
 function renderSt() {
         for (let i = 0; i < props.widthInput; i++) {
             for (let j = 0; j < props.lengthInput; j++ ) {
                 let td = document.getElementById(i * props.widthInput + j);
-                //console.log(td);
-                //td.textContent;
-                if (c([i, j]).revealed === true) {
-                     td.className = 'revealed';
-                    td.textContent = game.retrieveCell(i, j).textContent;
-                } else if (game.retrieveCell(i, j).flagged) {
-                    td.textContent = 'F';
-                } else if (game.retrieveCell(i, j).mine) {
-                    td.textContent = 'X';
-                }
-            }
+                let cell = c(i, j);
+                td.textContent = cell.textContent;
+                td.className = cell.htmlClass;
         }
     }
-function handleClick(evt) {
-   var cell = game.c(parse(evt.target.id));
-    //console.log(evt);
-    if (player.flagged && !cell.revealed) {
-        cell.flagged = true;
-    } else if (player.flagged === false && !cell.revealed) {
-        cell.flagged = false;
-    } else if (!cell.revealed && !cell.mine) {
-        console.log(adjacenters2(game.retrieveCell(5, 6)));
+}
+function openControlFlow(cell) {
+    console.log(`opening ${cell}`)
+    if (cell.revealed) {
+        console.log('cell already revealed');
     }
-    if (cell.mine) {
-        console.log(adjCellOpen(adjacenters(...parse(evt.target.id))));
-        gameOver();
-        console.log(cell);
-    } 
+    if (!cell.revealed) {
+        cell.revealed = true;
+        if (cell.number === 0) {
+            adjCellOpen(openControlFlow, adjacenters(...parse(cell.id)));
+        }
+//          cell.textContent = (cell.mine === true ? '💣' : '');
+        if (!cell.mine) {
+            cell.textContent = cell.number;
+           // adjCellOpen(openControlFlow, adjacenters(...parse(cell.id)));
+        }
+        if (cell.mine) {
+            cell.textContent = "B";
+        }
+    }
+}
+function numAdder1(cell) {
+    cell.number = cell.number + 1;
+}
+function handleClick(evt) {
+   var cell = c(...parse(evt.target.id));
+    openControlFlow(cell);
+    console.log(cell);
     renderSt();
 };
+
 function flagHandler(evt) {
     var flag = evt.target.textContent;
     if (flag === 'flagOff') {
@@ -121,7 +127,7 @@ function flagHandler(evt) {
     }
     console.dir(evt.target, evt.target.focus);
 };
-function adjacenters(x, y, cell) {
+function adjacenters(x, y) {
     var maxW = props.widthInput - 1;
     var maxL = props.lengthInput - 1;
     var adj = {
@@ -151,54 +157,16 @@ function adjacenters(x, y, cell) {
       );
   return neighbors
 }
-function adjSearcher(x, y) {
-    return adjacenters(x, y)
-}
 
-function adjCellOpen(array) {
-  let l = array.length
-  if (l > 0) {
+function adjCellOpen(cb, array) {
+    console.log(array);
+  if (array.length > 0) {
     let x = array[0][0];
     let y = array[0][1];
-    let cell = game.retrieveCell(x, y);
-      console.log(cell);
-      cell.revealed = true;
-    array = array.slice(1);
-    adjCellOpen(array);
+    let cell = c(x, y);
+          cb(cell);
+      adjCellOpen(cb, array.slice(1));
   } else {
     return;
   }
-}
-
-function adjacenters2(cell, x, y) {
-    x = parse(cell.id)[0];
-    y = parse(cell.id)[1];
-    var maxW = props.widthInput - 1;
-    var maxL = props.lengthInput - 1;
-    var adj = {
-        lc: game.retrieveCell(...[x, y - 1]),
-        lt: game.retrieveCell(...[x - 1, y - 1]),
-        lb: game.retrieveCell(...[x + 1, y - 1]),
-        rc: game.retrieveCell(...[x, y + 1]),
-        rt: game.retrieveCell(...[x - 1, y + 1]),
-        rb: game.retrieveCell(...[x + 1, y + 1]),
-        ct: game.retrieveCell(...[x - 1, y]),
-        cb: game.retrieveCell(...[x + 1, y])
-    }
-    var neighbors = (
-        x === 0 ?
-        y === 0 ? [adj.rc, adj.rb, adj.cb] :
-        y === maxW ? [adj.lc, adj.lb, adj.cb] : [adj.lc, adj.lb, adj.rc, adj.rb, adj.cb] :
-        y === maxW ?
-        x === 0 ? [adj.lc, adj.lb, adj.cb] :
-        x === maxL ? [adj.lc, adj.lt, adj.ct] : [adj.lc, adj.lt, adj.lb, adj.ct, adj.cb] :
-        x === maxL ?
-        y === maxW ? [adj.lc, adj.lt, adj.ct] :
-        y === 0 ? [adj.rc, adj.rt, adj.ct] : [adj.lc, adj.lt, adj.ct, adj.rt, adj.rc] :
-        y === 0 ?
-        x === maxL ? [adj.rc, adj.rt, adj.ct] :
-        x === 0 ? [adj.rb, adj.rc, adj.cb] : [adj.rc, adj.rt, adj.rb, adj.ct, adj.cb] :
-        Object.values(adj)
-      );
-    return neighbors.forEach((x)=>(x.revealed = true))
 }

@@ -7,7 +7,7 @@ class Board {
     for (var i = 0; i < this.width; i++) {
       this.field[i] = [ ...Array(length).keys()];
       for (var j = 0; j < this.length; j++) {
-        this.field[i][j] = new Cell(i, j, width);
+        this.field[i][j] = new Cell((i * width + j));
       }
     }
   }
